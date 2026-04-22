@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verificador de Triângulos</title>
+    <style>
+        body { font-family: 'Times New Roman', Times, serif; text-align: center; padding: 50px; background-color:aliceblue;}
+        input { margin: 10px; padding: 5px; }
+        .resultado { color: rgb(40, 106, 153); font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>Verificador de Triângulos</h2>
+    <div style="display: flex; justify-content: center; gap: 50px; flex-wrap: wrap;">
+        
+        <div style="border: 1px solid #ccc; padding: 20px; border-radius: 10px;">
+            <h3>Por Lados</h3>
+            <form method="post">
+                {% csrf_token %}
+                Lado 1: <input type="number" step="any" name="lado1" required style="display:block; margin: 10px auto;"><br>
+                Lado 2: <input type="number" step="any" name="lado2" required style="display:block; margin: 10px auto;"><br>
+                Lado 3: <input type="number" step="any" name="lado3" required style="display:block; margin: 10px auto;"><br>
+                <button type="submit" name="tipo_calculo" value="lados">Verificar por Lados</button>
+            </form>
+        </div>
+
+        <div style="border: 1px solid #ccc; padding: 20px; border-radius: 10px;">
+            <h3>Por Ângulos</h3>
+            <form method="post">
+                {% csrf_token %}
+                Ângulo 1: <input type="number" step="any" name="angulo1" required style="display:block; margin: 10px auto;"><br>
+                Ângulo 2: <input type="number" step="any" name="angulo2" required style="display:block; margin: 10px auto;"><br>
+                Ângulo 3: <input type="number" step="any" name="angulo3" required style="display:block; margin: 10px auto;"><br>
+                <button type="submit" name="tipo_calculo" value="angulos">Verificar por Ângulos</button>
+            </form>
+        </div>
+    </div>
+
+    {% if resultado %}
+        <p class="resultado">As medidas formam um triângulo {{ resultado }}</p>
+        <img src="data:image/png;base64,{{ grafico }}" alt="Triângulo">
+    {% endif %}
+
+    {% if erro %}
+        <p style="color: rgb(36, 19, 95);">{{ erro }}</p>
+    {% endif %}
+</body>
+</html>
